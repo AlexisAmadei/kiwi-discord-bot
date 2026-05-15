@@ -6,6 +6,7 @@ const token = config.token.trim();
 const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
 const readTerminal = require('./utils/readTerminal.js');
 const handlePrefix = require('./prefix/handlePrefix.js');
+const voiceHub = require('./events/voiceHub.js');
 
 readTerminal.on('line', (input) => {
     if (input === 'q') {
@@ -59,6 +60,8 @@ for (const folder of commandFolder) {
         }
     }
 }
+
+voiceHub.register(client);
 
 client.login(token);
 client.on('error', console.error);
