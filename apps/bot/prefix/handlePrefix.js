@@ -1,3 +1,4 @@
+const { logCommand } = require('../utils/logger.js');
 const myID = "376774687209947136"
 
 function handlePrefix(message) {
@@ -6,6 +7,12 @@ function handlePrefix(message) {
 
     messageArray = message.content.split(' ');
     if (message.content === 'ping' && message.author.id === myID) {
+        logCommand('prefix', {
+            guildId: message.guildId,
+            userId: message.author.id,
+            username: message.author.username,
+            command: 'ping',
+        });
         console.log(`# ${new Date().toString().slice(4, 24)} --> Nouveau message de ${message.author.username} avec ping`);
         message.channel.send('pong !');
     }

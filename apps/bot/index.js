@@ -8,6 +8,7 @@ const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require(
 const readTerminal = require('./utils/readTerminal.js');
 const handlePrefix = require('./prefix/handlePrefix.js');
 const voiceHub = require('./events/voiceHub.js');
+const { logCommand } = require('./utils/logger.js');
 
 readTerminal.on('line', (input) => {
     if (input === 'q') {
@@ -104,5 +105,11 @@ client.on(Events.InteractionCreate, async interaction => {
             await interaction.reply({ content: 'Erreur avec la commande', ephemeral: true });
         }
     }
+    logCommand('slash', {
+        guildId: interaction.guildId,
+        userId: interaction.user.id,
+        username: interaction.user.username,
+        command: interaction.commandName,
+    });
     console.log(`# ${logDate} --> Nouvelle interraction de ${interaction.user.username} avec (/) ${interaction.commandName}`);
 });

@@ -5,6 +5,7 @@ const {
     isTempChannel,
     removeTempChannel,
 } = require('../utils/voiceHubStore.js');
+const { logCommand } = require('../utils/logger.js');
 
 function register(client) {
     client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
@@ -35,6 +36,13 @@ function register(client) {
                         ],
                     });
                     addTempChannel(channel.id);
+                    logCommand('voice_hub', {
+                        guildId: newState.guild.id,
+                        userId: member.id,
+                        username: member.user?.username ?? displayName,
+                        command: 'voice_hub_join',
+                        detail: channel.id,
+                    });
                     await member.voice.setChannel(channel).catch(async (err) => {
                         console.error('Failed to move member into temp channel:', err);
                         await channel.delete().catch(() => {});
