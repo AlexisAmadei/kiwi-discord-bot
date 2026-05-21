@@ -17,4 +17,4 @@ RUN mkdir -p /app/data
 
 VOLUME ["/app/data"]
 
-CMD ["node", "index.js"]
+CMD ["sh", "-c", "node utils/deploy-commands.js && node index.js"]

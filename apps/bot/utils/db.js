@@ -22,4 +22,22 @@ db.exec(`
     )
 `);
 
+db.exec(`
+    CREATE TABLE IF NOT EXISTS stack_pool (
+        guild_id  TEXT NOT NULL,
+        user_id   TEXT NOT NULL,
+        username  TEXT NOT NULL,
+        added_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+        PRIMARY KEY (guild_id, user_id)
+    )
+`);
+
+db.exec(`
+    CREATE TABLE IF NOT EXISTS stack_config (
+        guild_id   TEXT PRIMARY KEY,
+        timezone   TEXT NOT NULL DEFAULT 'UTC',
+        updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+    )
+`);
+
 module.exports = db;

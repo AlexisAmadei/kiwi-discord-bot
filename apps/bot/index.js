@@ -39,6 +39,7 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildMessageReactions,
     ]
 });
 
@@ -89,6 +90,15 @@ client.on('messageCreate', (message) => {
 
 client.on(Events.InteractionCreate, async interaction => {
     const logDate = new Date().toString().slice(4, 24);
+
+    if (interaction.isAutocomplete()) {
+        const command = interaction.client.commands.get(interaction.commandName);
+        if (command?.autocomplete) {
+            try { await command.autocomplete(interaction); } catch { /* ignore */ }
+        }
+        return;
+    }
+
     if (!interaction.isChatInputCommand()) return;
     const command = interaction.client.commands.get(interaction.commandName);
     if (!command) {
