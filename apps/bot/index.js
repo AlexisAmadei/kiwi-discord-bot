@@ -77,7 +77,7 @@ client.login(token);
 client.on('error', console.error);
 
 client.once(Events.ClientReady, () => {
-    const activityStatus = "la population...";
+    const activityStatus = "/help | " + client.guilds.cache.size + " serveurs";
     console.log(`# Bot connecté sous => ${client.user.tag}`);
     client.user.setPresence({
         activities: [{ name: activityStatus, type: ActivityType.Watching }],
