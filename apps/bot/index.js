@@ -8,6 +8,7 @@ const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require(
 const readTerminal = require('./utils/readTerminal.js');
 const handlePrefix = require('./prefix/handlePrefix.js');
 const voiceHub = require('./events/voiceHub.js');
+const cocScheduler = require('./events/cocScheduler.js');
 const { logCommand } = require('./utils/logger.js');
 
 readTerminal.on('line', (input) => {
@@ -65,6 +66,7 @@ for (const folder of commandFolder) {
 }
 
 voiceHub.register(client);
+cocScheduler.register(client);
 
 if (!token) {
     console.error('Missing DISCORD_TOKEN in .env file.');
