@@ -14,7 +14,7 @@
 //        (https://docs.royaleapi.com/proxy)
 // -----------------------------------------------------------------------------
 
-const BASE = (process.env.COC_API_BASE || 'https://api.clashofclans.com/v1').replace(/\/+$/, '');
+const BASE = (process.env.COC_API_BASE || 'https://cocproxy.royaleapi.dev/v1').replace(/\/+$/, '');
 const TOKEN = (process.env.COC_API_TOKEN || '').trim();
 
 class CocApiError extends Error {
